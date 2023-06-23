@@ -1,0 +1,17 @@
+Vagrant.configure("2") do |config|
+    config.vm.provider "virtualbox" do |v|
+        v.name = "maquina_ubuntu"
+    end
+
+     config.vm.box = "hashicorp/bionic64"
+     config.vm.network "public_network"
+     config.ssh.username = "marlon"
+     config.ssh.password = "marlon"
+     config.vm.provision "shell",
+     inline: "sudo apt-get update && sudo apt-get install -y puppet"
+
+     config.vm.provision "puppet" do |puppet|
+        puppet.manifest_file = "app.pp"
+     end
+     
+end
